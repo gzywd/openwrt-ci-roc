@@ -77,6 +77,15 @@ rm -rf feeds/luci/applications/luci-app-openclash
 git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
 git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
 git clone --depth=1 https://github.com/vernesong/OpenClash package/luci-app-openclash
-
+###########################################################################
+# 新增：集成 iStore（放在这里！）
+###########################################################################
+echo >> feeds.conf.default
+echo 'src-git istore https://github.com/linkease/istore;main' >> feeds.conf.default
+./scripts/feeds update istore
+./scripts/feeds install -d y -p istore luci-app-store
+###########################################################################
+# 原有：全局更新并安装所有 feeds（必须在 iStore 集成之后执行）
+###########################################################################
 ./scripts/feeds update -a
 ./scripts/feeds install -a
